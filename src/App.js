@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import {Accordion,AccordionItem,AccordionItemTitle,AccordionItemBody,} from 'react-accessible-accordion';
+import './accordion.css';
 
 class App extends Component {
 constructor(){
@@ -51,7 +53,7 @@ handleSubmit(e) {
     return (
       <div className="Div">
       <h2 className="FormField1">Sample Registration</h2>
-  		<form className="Form" onSubmit={this.handleSubmit}>
+  		<form className="Form" autoComplete="off" onSubmit={this.handleSubmit}>
   		<div className="FormField">
   			<label className="Label">Name:</label>
   			<input className="Input" type="text" id="name" name="name" placeholder="Enter Name" value={this.state.name} onChange={this.handleChange}/>
@@ -84,6 +86,28 @@ handleSubmit(e) {
           {this.state.languages.map(language => <li className="li" key={language}><input onChange={this.handleSelect} type="checkbox" value={language}/>{language}</li>)}
         </ul>
         </div>
+        <div className="FormField">
+        <Accordion expanded="false">
+        <AccordionItem>
+            <AccordionItemTitle>
+                <h4>Simple title</h4>
+            </AccordionItemTitle>
+            <AccordionItemBody>
+                <p>Body content</p>
+            </AccordionItemBody>
+        </AccordionItem>
+        <AccordionItem>
+            <AccordionItemTitle>
+                <h4>Complex title</h4>
+
+            </AccordionItemTitle>
+            <AccordionItemBody>
+                <div>With a bit of description</div>
+                <p>Body content</p>
+            </AccordionItemBody>
+        </AccordionItem>
+    </Accordion>
+    </div>
         <button className="Button">Register</button>
         </form>
       </div>
