@@ -44,7 +44,7 @@ componentWillMount(){
  fetch('https://rtp2.cloud.boomerangplatform.net/isap/dev/projectms/api/v1/project/language')
   .then(res => res.json())
   .then(result => {this.setState({languages:result.result});
-    console.log(result.result)
+  //  console.log(result.result)
   })
 }
 
@@ -54,19 +54,22 @@ handleLanguage(e){
     this.setState({
       [name]:value
     })
-    console.log(value)
+  //   console.log(value)
     let temp=this.state.languages2;
     //console.log(temp)
     temp = temp.filter(l => {
       return l.language.match(value);
     });
-  /*  let name2='secondDropDown'
+    let second='secondDropDown';
     this.setState({
-      [name2]:temp
-    })*/
-    this.state.secondDropDown=temp;
-    // console.log(temp)
+      [second]:temp
+    })
     console.log(this.state.secondDropDown)
+    
+    // this.state.secondDropDown=temp;
+    //this.state.secondDropDown.push(temp);
+    // console.log(temp)
+
   }
 
 handleChange(e){
