@@ -10,7 +10,17 @@ constructor(){
   super();
   this.state={
         //languages:['English','Hindi','Telugu','Tamil'],
-        languages:[],
+        languages:[{"id":0,"language":"Select One Language"},
+          {"id":1,"language":"English"},
+          {"id":2,"language":"Hindi"},
+          {"id":3,"language":"Telugu"},
+          {"id":4,"language":"Tamil"}],
+        languages2:[{"id":0,"language":"Arabic","show":"arabic1"},
+          {"id":1,"language":"English","show":"eng1"},
+          {"id":2,"language":"English","show":"eng2"},
+          {"id":3,"language":"English","show":"eng3"},
+          {"id":4,"language":"Arabic","show":"arabic2"},
+            {"id":5,"language":"Arabic","show":"arabic3"}],
         states:['Choose One','AndhraPradesh','Tamilnadu','Karnataka'],
         stateSelected:'',
         languagesSelected:[],
@@ -18,20 +28,19 @@ constructor(){
       	phone: '',
 				email: '',
 				password: '',
-				gender:''
+				gender:'',
+        selected:'',
+        secondDropDown:[]
 };
 this.handleChange = this.handleChange.bind(this);
 this.handleSelect = this.handleSelect.bind(this);
 this.handleDropDown = this.handleDropDown.bind(this);
 this.handleSubmit = this.handleSubmit.bind(this);
-this.componentWillMount();
+this.handleLanguage = this.handleLanguage.bind(this);
+// this.componentWillMount();
 }
 
 componentWillMount(){
-  /*return $.getJSON('https://rtp2.cloud.boomerangplatform.net/isap/dev/projectms/api/v1/project/language')
-  .then(function(data){
-    return data.result;
-  });*/
  fetch('https://rtp2.cloud.boomerangplatform.net/isap/dev/projectms/api/v1/project/language')
   .then(res => res.json())
   .then(result => {this.setState({languages:result.result});
@@ -39,6 +48,26 @@ componentWillMount(){
   })
 }
 
+handleLanguage(e){
+  let name=e.target.name;
+  let value=e.target.value;
+    this.setState({
+      [name]:value
+    })
+    console.log(value)
+    let temp=this.state.languages2;
+    //console.log(temp)
+    temp = temp.filter(l => {
+      return l.language.match(value);
+    });
+  /*  let name2='secondDropDown'
+    this.setState({
+      [name2]:temp
+    })*/
+    this.state.secondDropDown=temp;
+    // console.log(temp)
+    console.log(this.state.secondDropDown)
+  }
 
 handleChange(e){
   let target=e.target;
@@ -78,7 +107,7 @@ handleSubmit(e) {
   			<label className="Label">Phone:</label>
   			<input className="Input" type="text" id="phone" name="phone" placeholder="Enter Phone Number" value={this.state.phone} onChange={this.handleChange}/>
   		</div>
-  		<div className="FormField">
+  		<div className="For'mField">
   			<label className="Label">Email:</label>
   			<input className="Input" type="text" id="email" name="email" placeholder="Enter Email" value={this.state.email} onChange={this.handleChange}/>
   		</div>
@@ -96,18 +125,21 @@ handleSubmit(e) {
           {this.state.states.map(state => <option key={state} value={state}>{state}</option>)}
         </select>
         </div>
+
         <div className="FormField">
         <label className="Radio">Language:</label>&nbsp;&nbsp;
-          <select>
+          <select name="selected" onChange={this.handleLanguage}>
               {this.state.languages.map(language => <option key={language.id} value={language.language}>{language.language}</option>)}
           </select>
           </div>
-      <div className="FormField">
-      <label className="Radio">Languages you know:</label>
-        <ul className="ul">
-          {this.state.languages.map(language => <li className="li" key={language}><input onChange={this.handleSelect} type="checkbox" value={language}/>{language}</li>)}
-        </ul>
-        </div>
+
+          <div className="FormField">
+          <label className="Radio">SecondDropDown:</label>&nbsp;&nbsp;
+            <select >
+                {this.state.secondDropDown.map(item => <option key={item.id} value={item.show}>{item.show}</option>)}
+            </select>
+            </div>
+
         <div className="FormField">
         <Accordion expanded="false">
         <AccordionItem>
@@ -139,3 +171,11 @@ handleSubmit(e) {
 }
 
 export default ComponentMain;
+/*
+<div className="FormField">
+<label className="Radio">Languages you know:</label>
+  <ul className="ul">
+    {this.state.languages.map(language => <li className="li" key={language}><input onChange={this.handleSelect} type="checkbox" value={language}/>{language}</li>)}
+  </ul>
+  </div>
+  */
