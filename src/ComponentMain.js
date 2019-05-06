@@ -65,7 +65,7 @@ handleLanguage(e){
       [second]:temp
     })
     console.log(this.state.secondDropDown)
-    
+
     // this.state.secondDropDown=temp;
     //this.state.secondDropDown.push(temp);
     // console.log(temp)
@@ -156,10 +156,9 @@ handleSubmit(e) {
         <AccordionItem>
             <AccordionItemTitle>
                 <h4>Complex title</h4>
-
+                <div>With a bit of description</div>
             </AccordionItemTitle>
             <AccordionItemBody>
-                <div>With a bit of description</div>
                 <p>Body content</p>
             </AccordionItemBody>
         </AccordionItem>
