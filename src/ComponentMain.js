@@ -30,6 +30,7 @@ constructor(){
 				password: '',
 				gender:'',
         selected:'',
+        secondSelected:'',
         secondDropDown:[]
 };
 this.handleChange = this.handleChange.bind(this);
@@ -138,7 +139,7 @@ handleSubmit(e) {
 
           <div className="FormField">
           <label className="Radio">SecondDropDown:</label>&nbsp;&nbsp;
-            <select >
+            <select name="secondSelected" onChange={this.handleDropDown} >
                 {this.state.secondDropDown.map(item => <option key={item.id} value={item.show}>{item.show}</option>)}
             </select>
             </div>
